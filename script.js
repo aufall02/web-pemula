@@ -1,17 +1,19 @@
 "use strict";
 
 const rules = document.querySelector(".rules");
+const coinHabis = document.querySelector(".coin-habis");
 const btnCloseRules = document.querySelector(".close-rules");
 const overlay = document.querySelector(".overlay");
 const btnRules = document.querySelector(".btn-rules");
 const btnSpin = document.querySelector(".spin");
 const coinPlayer = document.querySelector(".coin");
+// const generateId = () => Math.random().toString(36).substr(2, 18);
+
 let coin = 35;
 
 function putar() {
   const emojis = document.querySelectorAll(".emot");
   const listEmot = ["🍊", "🍉", "🥎", "⭐", "7️⃣"];
-  //   console.log(emojis);
   let i = 0;
   const waktuMulai = new Date().getTime();
   setInterval(function () {
@@ -25,17 +27,15 @@ function putar() {
     });
   }, 100);
   setTimeout(function () {
-    // const emojis = ["🍊", "🍉", "🥎", "⭐", "7️⃣"];
     const x = listEmot[Math.floor(Math.random() * 5)];
     const y = listEmot[Math.floor(Math.random() * 5)];
     const z = listEmot[Math.floor(Math.random() * 5)];
     const arr = [x, y, z];
-    console.log(x, y, z);
+    // console.log(x, y, z);
     let o = 0;
     emojis.forEach((e) => {
       e.textContent = arr[o++];
     });
-
     const hasil = arr.filter(function (v, i, s) {
       return s.indexOf(v) !== i;
     });
@@ -82,12 +82,21 @@ function putar() {
   }, 1500);
 }
 
+function checkCoin() {
+  coinHabis.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+}
+
 btnSpin.addEventListener("click", function () {
-  putar();
+  if (coin < 0) {
+    coin = 0;
+    checkCoin();
+  } else {
+    putar();
+  }
 });
 
 btnRules.addEventListener("click", function () {
-  // console.log('click');
   rules.classList.remove("hidden");
   overlay.classList.remove("hidden");
 });
@@ -97,5 +106,24 @@ btnCloseRules.addEventListener("click", function () {
   overlay.classList.add("hidden");
 });
 
-rules.classList.remove("hidden");
-overlay.classList.remove("hidden");
+// window.onload = function () {
+//     console.log(getUserClientId())
+//     if (getUserClientId()) {
+//         setUserClientId()
+//     } else {
+//         return 'id ada'
+//     }
+// };
+
+// const id = generateId()
+// const setUserClientId = async () => {
+// //   console.log(generateId);
+//   return localStorage.setItem(id, 35);
+// };
+// const getUserClientId = () => {
+// //   console.log(generateId);
+//   return localStorage.getItem(id);
+// };
+// const cleanUserClientId = () => {
+//   localStorage.removeItem(id);
+// };
